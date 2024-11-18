@@ -204,7 +204,8 @@ def generate_report_card():
 
 def main():
     while True:
-        print("Report Card Management System")
+        print("------------Report Card Management System-----")
+        print("------------Created By:Devesh Dixit-----------")
         print("1. Add Student")
         print("2. View All Students")
         print("3. Search Student")
