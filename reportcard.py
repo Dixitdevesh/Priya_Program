@@ -27,10 +27,13 @@ def view_students():
                 print("No student records found.\n")
             else:
                 print("All Student Records:\n")
-                print("Roll No, Name, Math, Science, English, History, Geography, Total Marks, Percentage")
+                print("-------------------------------------------------------------------")
+                print(f"{'Roll No':<10} {'Name':<20} {'Math':<6} {'Science':<8} {'English':<8} {'History':<8} {'Geography':<10} {'Total':<6} {'%'}")
+                print("-------------------------------------------------------------------")
                 for record in records:
-                    print(record.strip())
-                print()
+                    fields = record.strip().split(',')
+                    print(f"{fields[0]:<10} {fields[1]:<20} {fields[2]:<6} {fields[3]:<8} {fields[4]:<8} {fields[5]:<8} {fields[6]:<10} {fields[7]:<6} {fields[8]}%")
+                print("-------------------------------------------------------------------\n")
     except FileNotFoundError:
         print("No student records found.\n")
     except Exception as e:
@@ -45,7 +48,16 @@ def search_student():
             for record in records:
                 fields = record.strip().split(',')
                 if fields[0] == roll_number:
-                    print(f"\nStudent Found:\nRoll Number: {fields[0]}\nName: {fields[1]}\nMath: {fields[2]}\nScience: {fields[3]}\nEnglish: {fields[4]}\nHistory: {fields[5]}\nGeography: {fields[6]}\nTotal Marks: {fields[7]}\nPercentage: {fields[8]}\n")
+                    print("\nStudent Found:")
+                    print(f"Roll Number: {fields[0]}")
+                    print(f"Name: {fields[1]}")
+                    print(f"Math: {fields[2]}")
+                    print(f"Science: {fields[3]}")
+                    print(f"English: {fields[4]}")
+                    print(f"History: {fields[5]}")
+                    print(f"Geography: {fields[6]}")
+                    print(f"Total Marks: {fields[7]}")
+                    print(f"Percentage: {fields[8]}%\n")
                     found = True
                     break
             if not found:
@@ -134,11 +146,12 @@ def rank_students():
         with open(STUDENT_FILE, 'r') as file:
             records = file.readlines()
             students = [record.strip().split(',') for record in records]
-            ranked_students = sorted(students, key=lambda x: int(x[7]), reverse=True)
+            ranked_students = sorted(students, key=lambda x: float(x[8]), reverse=True)
             print("Ranked Students:\n")
-            print("Rank, Roll No, Name, Total Marks, Percentage")
+            print("Rank | Roll No | Name                | Total Marks | Percentage")
+            print("-------------------------------------------------------------")
             for rank, student in enumerate(ranked_students, start=1):
-                print(f"{rank}, {student[0]}, {student[1]}, {student[7]}, {student[8]}%")
+                print(f"{rank:<5} | {student[0]:<8} | {student[1]:<18} | {student[7]:<11} | {student[8]}%")
             print()
     except FileNotFoundError:
         print("No student records found.\n")
@@ -150,11 +163,12 @@ def top_students():
         with open(STUDENT_FILE, 'r') as file:
             records = file.readlines()
             students = [record.strip().split(',') for record in records]
-            top_students = sorted(students, key=lambda x: int(x[7]), reverse=True)[:3]
+            top_students = sorted(students, key=lambda x: float(x[8]), reverse=True)[:3]
             print("Top 3 Students:\n")
-            print("Roll No, Name, Total Marks, Percentage")
-            for student in top_students:
-                print(f"{student[0]}, {student[1]}, {student[7]}, {student[8]}%")
+            print("Rank | Roll No | Name                | Total Marks | Percentage")
+            print("-------------------------------------------------------------")
+            for rank, student in enumerate(top_students, start=1):
+                print(f"{rank:<5} | {student[0]:<8} | {student[1]:<18} | {student[7]:<11} | {student[8]}%")
             print()
     except FileNotFoundError:
         print("No student records found.\n")
@@ -191,8 +205,7 @@ def generate_report_card():
                     print(f"History: {fields[5]}")
                     print(f"Geography: {fields[6]}")
                     print(f"Total Marks: {fields[7]}")
-                    print(f"Percentage: {fields[8]}%")
-                    print("-----------------------\n")
+                    print(f"Percentage: {fields[8]}%\n")
                     found = True
                     break
             if not found:
@@ -204,8 +217,9 @@ def generate_report_card():
 
 def main():
     while True:
-        print("------------Report Card Management System-----")
-        print("------------Created By:Devesh Dixit-----------")
+        print("------------ Report Card Management System ------------")
+        print("------------ Created By: Priya and Anushka ------------")
+        print("---- Represented in Kanha Makhan Public School --------")
         print("1. Add Student")
         print("2. View All Students")
         print("3. Search Student")
